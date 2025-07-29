@@ -51,9 +51,10 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
 // });
 
 const createBookingCheckout = async (session) => {
-  const tour = session.client_reference_id; 
+  const tour = session.client_reference_id;
   const user = (await User.findOne({ email: session.customer_email })).id;
-  const price = session.line_items.data[0].price_data.unit_amount / 100; // Stripe stores in cents
+  // Use the correct path for the price from a retrieved session object
+  const price = session.line_items.data[0].price.unit_amount / 100;
   await Booking.create({ tour, user, price });
 };
 
@@ -71,16 +72,22 @@ exports.webhookCheckout = async (req, res, next) => {
     return res.status(400).send(`Webhook error: ${err.message}`);
   }
 
- if (event.type === 'checkout.session.completed') 
-    //   const session = await stripe.checkout.sessions.retrieve(event.data.object.id, {
-    //   expand: ['line_items'],
-    // });
+  if (event.type === 'checkout.session.completed') {
+    // ✅ 1. Retrieve the session with line_items expanded
+    const sessionWithLineItems = await stripe.checkout.sessions.retrieve(
+      event.data.object.id,
+      {
+        expand: ['line_items'],
+      }
+    );
 
-    createBookingCheckout(event.data.object);
-  
+    // ✅ 2. Pass the full session object to create the booking
+    await createBookingCheckout(sessionWithLineItems);
+  }
 
   res.status(200).json({ received: true });
 };
+
 
 exports.createBooking = factory.createOne(Booking);
 exports.getBooking = factory.getOne(Booking);
