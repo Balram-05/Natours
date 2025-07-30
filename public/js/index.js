@@ -5,6 +5,10 @@ import { login, logout } from './login';
 import { updateSettings } from './updateSettings';
 import { bookTour } from './stripe';
 import { showAlert } from './alerts';
+import { signup } from './signup';
+import { resetPassword } from './updateSettings';
+import './forgotPassword';
+
 
 // DOM ELEMENTS
 const mapBox = document.getElementById('map');
@@ -13,6 +17,8 @@ const logOutBtn = document.querySelector('.nav__el--logout');
 const userDataForm = document.querySelector('.form-user-data');
 const userPasswordForm = document.querySelector('.form-user-password');
 const bookBtn = document.getElementById('book-tour');
+const signupForm = document.querySelector('.form--signup');
+const resetForm = document.querySelector('.form--reset-password');
 
 // DELEGATION
 if (mapBox) {
@@ -27,6 +33,28 @@ if (loginForm)
     const password = document.getElementById('password').value;
     login(email, password);
   });
+
+if (signupForm) {
+  signupForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    const passwordConfirm = document.getElementById('passwordConfirm').value;
+
+    signup(name, email, password, passwordConfirm);
+  });
+}
+
+if (resetForm) {
+  resetForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const password = document.getElementById('password').value;
+    const passwordConfirm = document.getElementById('passwordConfirm').value;
+    const token = resetForm.dataset.token;
+    resetPassword(token, password, passwordConfirm);
+  });
+}
 
 if (logOutBtn) logOutBtn.addEventListener('click', logout);
 if (userDataForm)

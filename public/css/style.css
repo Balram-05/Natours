@@ -1324,3 +1324,247 @@ body {
   -webkit-transform: translateY(-2px);
   transform: translateY(-2px);
 }
+
+.forgot-password-form {
+  max-width: 40rem;
+  margin: 2rem auto;
+  padding: 2rem 3rem;
+  background-color: #f7f7f7;
+  border-radius: 5px;
+  box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.1);
+}
+
+.forgot-password-form h2 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
+.forgot-password-form .form__group {
+  margin-bottom: 1.5rem;
+}
+
+.forgot-password-form .form__input {
+  width: 100%;
+  padding: 1rem 1.5rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.forgot-password-form .btn--green {
+  padding: 0.8rem 1.5rem;
+  background-color: #55c57a;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.forgot-password-form .btn--green:hover {
+  background-color: #28b485;
+}
+
+/* ===== ADDITIONAL STYLES FOR REVIEW FORM ===== */
+/* Add these styles to your existing style.css file */
+
+/* Review Section Styles */
+.section-review {
+  padding: 8rem 0;
+  background: linear-gradient(to right bottom, #7dd3fc, #0ea5e9);
+  min-height: calc(100vh - 8rem);
+}
+
+.review-container {
+  max-width: 60rem;
+  margin: 0 auto;
+  background: white;
+  border-radius: 1rem;
+  box-shadow: 0 2rem 6rem rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+
+.review-header {
+  background: linear-gradient(to right, #55c57a, #28b485);
+  padding: 3rem;
+  text-align: center;
+  color: white;
+}
+
+.review-header .heading-primary {
+  font-size: 3rem;
+  font-weight: 300;
+  margin-bottom: 1rem;
+  color: white;
+  text-transform: uppercase;
+}
+
+.review-subtitle {
+  font-size: 1.6rem;
+  font-weight: 400;
+}
+
+.tour-info {
+  background: #f7f7f7;
+  padding: 2rem 3rem;
+  border-bottom: 1px solid #eee;
+}
+
+.tour-info .heading-secondary {
+  color: #55c57a;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.tour-info__description {
+  font-size: 1.4rem;
+  margin-bottom: 1.5rem;
+}
+
+.booking-status {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.status-badge {
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.status-booked {
+  background: #d4edda;
+  color: #155724;
+}
+
+.status-not-booked {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.review-form-container {
+  padding: 3rem;
+}
+
+.review-form {
+  max-width: none;
+}
+
+/* Form Textarea Specific Styles */
+.form__textarea {
+  resize: vertical;
+  min-height: 12rem;
+  font-family: inherit;
+}
+
+.form__help {
+  display: block;
+  margin-top: 0.5rem;
+  color: #666;
+  font-size: 1.2rem;
+}
+
+/* Star Rating Styles */
+.rating-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.star-rating {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.star {
+  font-size: 2.5rem;
+  color: #ddd;
+  cursor: pointer;
+  transition: all 0.2s;
+  user-select: none;
+}
+
+.star:hover,
+.star.active {
+  color: #ffd700;
+  transform: scale(1.1);
+}
+
+.rating-text {
+  font-size: 1.4rem;
+  color: #666;
+  font-weight: 500;
+}
+
+/* Button Disabled State Enhancement */
+.btn--green:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.btn--green:disabled:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+/* Alert Variations (your existing .alert styles will be used, these are just additional variants) */
+.alert--warning {
+  background-color: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeaa7;
+}
+
+/* Loading Spinner */
+.loading {
+  display: inline-block;
+  width: 2rem;
+  height: 2rem;
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #55c57a;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-left: 1rem;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* Responsive Design for Review Form */
+@media only screen and (max-width: 56.25em) {
+  .review-container {
+    margin: 0 2rem;
+  }
+
+  .review-header,
+  .tour-info,
+  .review-form-container {
+    padding: 2rem;
+  }
+
+  .star {
+    font-size: 2rem;
+  }
+
+  .rating-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+}
