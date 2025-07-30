@@ -1250,8 +1250,7 @@ body {
   border-radius: 4px;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  /* Pseudo element (a visible thing that isn't really in the DOM).
-      Also needs -ms- */
+ 
 }
 .form__input:focus {
   outline: none;
@@ -1365,10 +1364,6 @@ body {
   background-color: #28b485;
 }
 
-/* ===== ADDITIONAL STYLES FOR REVIEW FORM ===== */
-/* Add these styles to your existing style.css file */
-
-/* Review Section Styles */
 .section-review {
   padding: 8rem 0;
   background: linear-gradient(to right bottom, #7dd3fc, #0ea5e9);
@@ -1501,7 +1496,6 @@ body {
   font-weight: 500;
 }
 
-/* Button Disabled State Enhancement */
 .btn--green:disabled {
   background: #ccc;
   cursor: not-allowed;
@@ -1514,7 +1508,6 @@ body {
   box-shadow: none;
 }
 
-/* Alert Variations (your existing .alert styles will be used, these are just additional variants) */
 .alert--warning {
   background-color: #fff3cd;
   color: #856404;
@@ -1546,7 +1539,6 @@ body {
   display: none !important;
 }
 
-/* Responsive Design for Review Form */
 @media only screen and (max-width: 56.25em) {
   .review-container {
     margin: 0 2rem;
@@ -1567,4 +1559,32 @@ body {
     align-items: flex-start;
     gap: 0.5rem;
   }
+}
+
+.section-tours {
+  text-align: center;
+  padding: 2rem 0;
+  background-color: #f7f7f7;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid #ddd;
+}
+
+#tourResults .card {
+  max-width: 600px;
+  margin: 1rem auto;
+}
+
+.section-search-centered {
+  padding: 5rem 0;
+  margin-bottom: 5rem;
+  text-align: center;
+  background-color: #f7f7f7; 
+}
+
+.search-form input,
+.search-form select {
+  padding: 1rem 1.5rem;
+  border-radius: 100px;
+  border: 1px solid #ddd;
+  margin: 0 0.5rem;
 }

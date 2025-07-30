@@ -2,19 +2,23 @@ const express = require('express');
 const viewsController = require('../controllers/viewsController');
 const authController = require('../controllers/authController');
 const bookingController = require('../controllers/bookingController');
+const tourController = require('../controllers/tourController');
 
 const router = express.Router();
 
 router.use(viewsController.alerts);
 
+router.get(
+  '/tours-within/:distance/center/:latlng/unit/:unit',
+  tourController.getToursWithin, 
+);
+
 router.get('/', authController.isLoggedIn, viewsController.getOverview);
 router.get('/tour/:slug', authController.isLoggedIn, viewsController.getTour);
 router.get('/login', authController.isLoggedIn, viewsController.getLoginForm);
-router.get('/signup', viewsController.getSignupForm);
 router.get('/me', authController.protect, viewsController.getAccount);
 router.get(
   '/my-tours',
-  // bookingController.createBookingCheckout,
   authController.protect,
   viewsController.getMyTours,
 );
@@ -24,8 +28,5 @@ router.post(
   authController.protect,
   viewsController.updateUserData,
 );
-
-router.get('/forgot-password', viewsController.getForgotPasswordForm);
-router.get('/resetPassword/:token', viewsController.getResetPasswordForm);
 
 module.exports = router;

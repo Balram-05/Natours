@@ -74,7 +74,7 @@ exports.webhookCheckout = async (req, res, next) => {
   }
 
   if (event.type === 'checkout.session.completed') {
-    // ✅ 1. Retrieve the session with line_items expanded
+
     const sessionWithLineItems = await stripe.checkout.sessions.retrieve(
       event.data.object.id,
       {
@@ -82,7 +82,6 @@ exports.webhookCheckout = async (req, res, next) => {
       },
     );
 
-    // ✅ 2. Pass the full session object to create the booking
     await createBookingCheckout(sessionWithLineItems);
   }
 

@@ -9,7 +9,6 @@ import { signup } from './signup';
 import { resetPassword } from './updateSettings';
 import './forgotPassword';
 
-
 // DOM ELEMENTS
 const mapBox = document.getElementById('map');
 const loginForm = document.querySelector('.form--login');
@@ -19,6 +18,7 @@ const userPasswordForm = document.querySelector('.form-user-password');
 const bookBtn = document.getElementById('book-tour');
 const signupForm = document.querySelector('.form--signup');
 const resetForm = document.querySelector('.form--reset-password');
+const searchBtn = document.getElementById('search-btn');
 
 // DELEGATION
 if (mapBox) {
@@ -113,3 +113,44 @@ if (bookBtn)
 
 const alertMessage = document.querySelector('body').dataset.alert;
 if (alertMessage) showAlert('success', alertMessage, 20);
+
+document.addEventListener('DOMContentLoaded', () => {
+
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('search') === 'success') {
+    showAlert('success', 'Search successful! Displaying tours near you.');
+    const newUrl = window.location.pathname;
+    window.history.replaceState({}, document.title, newUrl);
+  }
+
+  if (searchBtn) {
+    searchBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+
+      const distance = document.getElementById('distance').value;
+      const unit = document.getElementById('unit').value;
+
+      if (!distance) return showAlert('error', 'Please provide a distance!');
+
+    
+
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          const targetUrl = `/tours-within/${distance}/center/${latitude},${longitude}/unit/${unit}?search=success`;
+
+    
+
+          // Redirect to the new URL
+          window.location.assign(targetUrl);
+        },
+        () => {
+          showAlert(
+            'error',
+            'Could not get your position. Please allow location access.',
+          );
+        },
+      );
+    });
+  }
+});

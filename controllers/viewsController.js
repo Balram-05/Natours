@@ -37,32 +37,11 @@ exports.getTour = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.getSignupForm = (req, res) => {
-  res.status(200).render('signup', {
-    title: 'Create your account',
-  });
-};
-
 exports.getLoginForm = (req, res) => {
   res.status(200).render('login', {
     title: 'Log in to you account',
   });
 };
-
-exports.getForgotPasswordForm = (req, res) => {
-  res.status(200).render('forgotPassword', {
-    title: 'Forgot Password',
-  });
-};
-
-exports.getResetPasswordForm = (req, res) => {
-  const token = req.params.token; 
-  res.status(200).render('resetPassword', {
-    title: 'Reset Your Password',
-    token
-  });
-};
-
 
 exports.getAccount = (req, res) => {
   res.status(200).render('account', {
