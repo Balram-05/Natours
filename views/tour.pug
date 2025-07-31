@@ -81,6 +81,25 @@ block content
       each review in tour.reviews
         +reviewCard(review)
 
+  //- MOVED THE REVIEW FORM TO ITS OWN DEDICATED SECTION
+  section.section-leave-review
+    if user
+      .reviews__form-container
+        h2.heading-secondary.ma-bt-md Leave a review
+        form.form.form--review(data-tour-id=`${tour.id}`)
+          .form__group
+            .reviews__rating
+              each star in [1, 2, 3, 4, 5]
+                svg.reviews__star.reviews__star--form(data-rating=star)
+                  use(xlink:href='/img/icons.svg#icon-star')
+            input#rating(type="hidden", name="rating", required)
+          .form__group
+            textarea#review.form__input(name="review", rows="3", placeholder="Tell us about your experience...", required)
+          .form__group
+            button.btn.btn--green Submit review
+    else
+      p.reviews__cta Please <a href="/login">log in</a> to write a review.
+
   section.section-cta
     .cta
       .cta__img.cta__img--logo
@@ -95,5 +114,3 @@ block content
           button.btn.btn--green.span-all-rows#book-tour(data-tour-id=`${tour.id}`) Book tour now!
         else
           a.btn.btn--green.span-all-rows(href='/login') Login to book tour
-
-        //- button.btn.btn--green.span-all-rows Book tour now!

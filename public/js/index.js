@@ -19,6 +19,9 @@ const bookBtn = document.getElementById('book-tour');
 const signupForm = document.querySelector('.form--signup');
 const resetForm = document.querySelector('.form--reset-password');
 const searchBtn = document.getElementById('search-btn');
+const starContainer = document.querySelector('.reviews__rating');
+const ratingInput = document.getElementById('rating');
+const reviewForm = document.querySelector('.form--review');
 
 // DELEGATION
 if (mapBox) {
@@ -115,7 +118,6 @@ const alertMessage = document.querySelector('body').dataset.alert;
 if (alertMessage) showAlert('success', alertMessage, 20);
 
 document.addEventListener('DOMContentLoaded', () => {
-
   const urlParams = new URLSearchParams(window.location.search);
   if (urlParams.get('search') === 'success') {
     showAlert('success', 'Search successful! Displaying tours near you.');
@@ -132,14 +134,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (!distance) return showAlert('error', 'Please provide a distance!');
 
-    
-
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const { latitude, longitude } = position.coords;
           const targetUrl = `/tours-within/${distance}/center/${latitude},${longitude}/unit/${unit}?search=success`;
-
-    
 
           // Redirect to the new URL
           window.location.assign(targetUrl);
@@ -154,3 +152,80 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+  // --- STAR RATING INTERACTIVITY ---
+  // Use a more specific selector to target the stars inside the form
+  const starContainer = document.querySelector(
+    '.form--review .reviews__rating',
+  );
+  const ratingInput = document.getElementById('rating');
+
+  if (starContainer) {
+    const stars = Array.from(starContainer.children);
+
+    const handleStarClick = (e) => {
+      const star = e.target.closest('.reviews__star--form');
+      if (!star) return;
+
+      const rating = star.dataset.rating;
+      ratingInput.value = rating; // Set the value of the hidden input
+
+      stars.forEach((s, i) => {
+        // The 'reviews__star--active' class should have a fill color in your CSS
+        s.classList.toggle('reviews__star--active', i < rating);
+        s.classList.toggle('reviews__star--inactive', i >= rating);
+      });
+    };
+
+    starContainer.addEventListener('click', handleStarClick);
+  }
+});
+
+if (reviewForm) {
+  reviewForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const tourId = reviewForm.dataset.tourId;
+    const review = document.getElementById('review').value;
+    const rating = document.getElementById('rating').value;
+    if (!rating) {
+      return showAlert(
+        'error',
+        'Please select a star rating before submitting.',
+      );
+    }
+
+    const submitBtn = reviewForm.querySelector('button');
+    submitBtn.textContent = 'Submitting...';
+    submitBtn.disabled = true;
+
+    try {
+      // Your backend route is POST /api/v1/tours/:tourId/reviews
+      const res = await fetch(`/api/v1/tours/${tourId}/reviews`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ review, rating }),
+      });
+
+      const data = await res.json();
+
+      if (data.status === 'success') {
+        showAlert('success', 'Thank you for your review!');
+        // Reload the page to show the new review
+        window.setTimeout(() => {
+          location.reload();
+        }, 1500);
+      } else {
+        showAlert('error', data.message);
+      }
+    } catch (err) {
+      showAlert('error', 'Something went wrong. Please try again.');
+    } finally {
+      submitBtn.textContent = 'Submit review';
+      submitBtn.disabled = false;
+    }
+  });
+}

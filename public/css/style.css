@@ -1588,3 +1588,38 @@ body {
   border: 1px solid #ddd;
   margin: 0 0.5rem;
 }
+
+.section-leave-review {
+  margin-top: calc(0px - var(--section-rotate));
+  padding: calc(5rem + var(--section-rotate)) 0;
+  background-color: #f7f7f7;
+  text-align: center;
+}
+
+.reviews__form-container {
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 3rem;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.1);
+}
+
+.reviews__rating {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.reviews__star--form {
+  height: 3.5rem; /* Make stars bigger */
+  width: 3.5rem;
+  margin-right: 0.5rem;
+  cursor: pointer; /* Show that stars are clickable */
+}
+
+.form--review textarea.form__input {
+  font-size: 1.6rem; /* Make text area font larger */
+  padding: 1.5rem;
+  height: 15rem; /* Give the text area more height */
+}
